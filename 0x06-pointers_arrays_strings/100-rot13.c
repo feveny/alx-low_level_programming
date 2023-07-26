@@ -1,28 +1,19 @@
-#include "holberton.h"
-/**
- * rot13 - change letters to ROT13.
- * @s: analized string.
- *
- * Return: String with all letters in ROT13 base.
- */
-char *rot13(char *s)
-{
-	char a[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	char rot[] = "NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm";
-	int i = 0;
-	int j;
+#include <stdlib.h>
+#include <string.h>
 
-	while (*(s + i) != '\0')
-	{
-		for (j = 0; j <= 51; j++)
-		{
-			if (*(s + i) == a[j])
-			{
-				*(s + i) = rot[j];
-				break;
-			}
-		}
-		i++;
-	}
-	return (s);
+char *rot13(char *str) {
+    int len = strlen(str);
+    char *result = (char *) malloc(sizeof(char) * (len + 1)); // allocate memory for result string
+    int i, j;
+    for (i = 0; i < len; i++) {
+        if (str[i] >= 'A' && str[i] <= 'Z') {
+            result[i] = ((str[i] - 'A' + 13) % 26) + 'A'; // apply ROT13 to uppercase letters
+        } else if (str[i] >= 'a' && str[i] <= 'z') {
+            result[i] = ((str[i] - 'a' + 13) % 26) + 'a'; // apply ROT13 to lowercase letters
+        } else {
+            result[i] = str[i]; // leave non-alphabetic characters unchanged
+        }
+    }
+    result[len] = '\0'; // add null terminator to result string
+    return result;
 }
