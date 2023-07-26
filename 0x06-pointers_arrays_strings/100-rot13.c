@@ -1,19 +1,31 @@
-#include <stdlib.h>
-#include <string.h>
+#include "main.h"
 
-char *rot13(char *str) {
-    int len = strlen(str);
-    char *result = (char *) malloc(sizeof(char) * (len + 1)); // allocate memory for result string
-    int i, j;
-    for (i = 0; i < len; i++) {
-        if (str[i] >= 'A' && str[i] <= 'Z') {
-            result[i] = ((str[i] - 'A' + 13) % 26) + 'A'; // apply ROT13 to uppercase letters
-        } else if (str[i] >= 'a' && str[i] <= 'z') {
-            result[i] = ((str[i] - 'a' + 13) % 26) + 'a'; // apply ROT13 to lowercase letters
-        } else {
-            result[i] = str[i]; // leave non-alphabetic characters unchanged
-        }
-    }
-    result[len] = '\0'; // add null terminator to result string
-    return result;
+/**
+ * rot13 -  a function that encodes a string using rot13.
+ * @s: An input string to encode using rot13
+ * Return: An encode string
+ */
+char *rot13(char *s)
+{
+	int i = 0;
+
+	while (s[i] != '\0')
+	{
+		while ((s[i] >= 'a' && s[i] <= 'z') ||
+				(s[i] >= 'A' && s[i] <= 'Z'))
+		{
+			if ((s[i] >= 'a' && s[i] <= 'm') ||
+					(s[i] >= 'A' && s[i] <= 'M'))
+			{
+				s[i] = s[i] + 13;
+			}
+			else
+			{
+				s[i] = s[i] - 13;
+			}
+			i++;
+		}
+		i++;
+	}
+	return (s);
 }
