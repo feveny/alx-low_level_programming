@@ -1,26 +1,33 @@
 #include "lists.h"
-#include <stdlib.h>
 
 /**
- * free_dlistint - frees a dlistint_t list.
- * @head: pointer to the dll
- *
- * Return: void, nth
+ * get_dnodeint_at_index - returns the
+ * nth node of a dlistint_t linked list
+ * @head: head of the list
+ * @index: index of the nth node
+ * Return: nth node
  */
-void free_dlistint(dlistint_t *head)
+dlistint_t *get_dnodeint_at_index(dlistint_t *head, unsigned int index)
 {
+	unsigned int i;
+
+
 	if (head == NULL)
-		return;
+		return (NULL);
+
 	while (head->prev != NULL)
 		head = head->prev;
-	while (1)
+
+
+	i = 0;
+
+	while (head != NULL)
 	{
-		if (head->next == NULL)
-		{
-			free(head);
-			return;
-		}
+		if (i == index)
+			break;
 		head = head->next;
-		free(head->prev);
+		i++;
 	}
+
+	return (head);
 }
